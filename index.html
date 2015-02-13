@@ -19,13 +19,14 @@
 			console.log(getNum);
 			var showNum = function(){
 				$('#display').html("<h1>" + total + "</h2>");	
-				/*$('#container').fadeIn("slow");
-				$('#container').fadeOut("slow");*/
-				//$('#container').fadeIn();
-				$('#container').animate({opacity:"1", height:"40%", top:"30%", fontSize:"80pt"}).delay(400).animate({opacity:"0", height:"12", top:"0", fontSize:"20pt"});
-				//.delay(500).fadeOut();
 			}
-			
+			var animation1 = function(){
+				$('#container').animate({opacity:"1", height:"40%", top:"30%", fontSize:"80pt"}).$(this).mouseout.animate({opacity:"0", height:"12", top:"100%", fontSize:"20pt"}).animate({top:"0"});
+				
+			}
+			/*var animation2 = function(){
+				$('#container')	
+			}*/
 			var add = function(){
 				getNum();
 				total = num1 + num2;
@@ -51,7 +52,14 @@
 				function(){
 					add();
 					showNum();
+					animation1();
 					
+				}
+			);
+			
+			$('#topleft').mouseout(
+				function() {
+					animation2();
 				}
 			);
 			//subtract
@@ -59,21 +67,39 @@
 				function(){
 					subtract();
 					showNum();
+					animation1();
 					
+				}
+			);
+			$('#topright').mouseout(
+				function() {
+					animation2();
 				}
 			);
 			$('#botleft').click(
 				function(){
 					mult();
 					showNum();
+					animation1();
 					
+				}
+			);
+			$('#botleft').mouseout(
+				function() {
+					animation2();
 				}
 			);
 			$('#botright').click(
 				function(){
 					divide();
 					showNum();
+					animation1();
 					
+				}
+			);
+			$('#botright').mouseout(
+				function() {
+					animation2();
 				}
 			);
 		}
@@ -155,10 +181,18 @@ div {
 		top:44%;
 		left:35%;
 		z-index:1;
+		
 	}
 	#numbers input {
-		height:50px;
+		height:70px;
+		width:200px;
 		margin:auto;
+		opacity:0.8;
+		border:none;
+		font-size:20pt;
+		margin-bottom:6px;
+		border-radius:20px;
+		text-align:center;
 	}
 </style>
 <body>

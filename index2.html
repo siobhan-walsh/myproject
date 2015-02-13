@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>calculator supreme
+    </title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+	$(document).ready(
+		function(){
+			var num1 = 0;
+			var num2 = 0;
+			var total = 0;
+			var getNum = function(){
+				num1 = parseInt($('#num1').val());
+				num2 = parseInt($('#num2').val());	
+			}
+			console.log(getNum);
+			var showNum = function(){
+				$('#display').html("<h1>" + total + "</h2>");	
+			}
+			var animation1 = function(){
+				$('#container').animate({opacity:"1", height:"40%", top:"30%", fontSize:"80pt"}).$(this).mouseout.animate({opacity:"0", height:"12", top:"100%", fontSize:"20pt"}).animate({top:"0"});
+				
+			}
+			/*var animation2 = function(){
+				$('#container')	
+			}*/
+			var add = function(){
+				getNum();
+				total = num1 + num2;
+			}
+			
+			var subtract = function(){
+				getNum();
+				total = num1 - num2;
+			}
+			
+			var mult = function(){
+				getNum();
+				total = num1 * num2;
+			}
+			
+			var divide = function(){
+				getNum();
+				total = num1 / num2;	
+			}
+			
+			//add
+			$('#topleft').click(
+				function(){
+					add();
+					showNum();
+					animation1();
+					
+				}
+			);
+			
+			$('#topleft').mouseout(
+				function() {
+					animation2();
+				}
+			);
+			//subtract
+			$('#topright').click(
+				function(){
+					subtract();
+					showNum();
+					animation1();
+					
+				}
+			);
+			$('#topright').mouseout(
+				function() {
+					animation2();
+				}
+			);
+			$('#botleft').click(
+				function(){
+					mult();
+					showNum();
+					animation1();
+					
+				}
+			);
+			$('#botleft').mouseout(
+				function() {
+					animation2();
+				}
+			);
+			$('#botright').click(
+				function(){
+					divide();
+					showNum();
+					animation1();
+					
+				}
+			);
+			$('#botright').mouseout(
+				function() {
+					animation2();
+				}
+			);
+		}
+	);
+</script>
+
+<style>
+div {	
+
+
+	
+}
+	#container {
+		display:none;
+		width:30%;
+		height:12%;
+		background:#28E9DC;
+		z-index:2;
+		position:fixed;
+		top:0%;
+		right:15%;
+		font-size:20pt;
+		text-align:center;
+		line-height:50%;
+		border:10px;
+		border-radius:15px;
+		border-color:#000000;
+	}
+	#topleft {
+		position:fixed;
+		left:0;
+		top:0;
+		width:50%;
+		height: 50%;
+		background:#ED04A7;
+		font-size:200pt;
+		text-align:center;
+		line-height:50%;
+
+	}
+	#topright {
+		position:fixed;
+		right:0;
+		top:0;
+		width:50%;
+		height: 50%;
+		background:#6A71F1;
+		font-size:200pt;
+		text-align:center;
+		line-height:50%;
+
+	}
+	#botleft {
+		position:fixed;
+		left:0;
+		bottom:0;
+		width:50%;
+		height: 50%;
+		background:#0BE34B;
+		font-size:200pt;
+		text-align:center;
+		line-height:50%;
+
+	}
+	#botright {
+		position:fixed;
+		right:0;
+		bottom:0;
+		width:50%;
+		height: 50%;
+		background:#BD10F7;
+		font-size:200pt;
+		text-align:center;
+		line-height:50%;
+
+	}
+	#numbers {
+		position:fixed;
+		top:44%;
+		left:35%;
+		z-index:1;
+		
+	}
+	#numbers input {
+		height:70px;
+		width:200px;
+		margin:auto;
+		opacity:0.8;
+		border:none;
+		font-size:20pt;
+		margin-bottom:6px;
+		border-radius:20px;
+		text-align:center;
+	}
+</style>
+<body>
+	<div id='numbers'>
+	<input id="num1" type="text" placeholder="the first #"/><br>
+    <input id="num2" type='text' placeholder='the second #'/>
+    </div>
+	<div id='topleft'>
+    <br>
+    +
+    </div>
+    <div id='topright'>
+    <br>
+    -
+    </div>
+    <div id='botleft'>
+    <br>
+    X
+    </div>
+    <div id='botright'>
+    <br>
+    /
+    </div>
+	<display id='container'>
+    	<div id="display">
+    	</div>
+	</div>
+
+
+</body>
+</html>

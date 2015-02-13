@@ -2,7 +2,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>week7?</title>
+	<title>calculator supreme
+    </title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
@@ -17,9 +18,12 @@
 			}
 			console.log(getNum);
 			var showNum = function(){
-				$('#display').html("<h1>=  " + total + "</h2>");	
-				$('#container').fadeIn("slow");
-				$('container').fadeOut("slow");
+				$('#display').html("<h1>" + total + "</h2>");	
+				/*$('#container').fadeIn("slow");
+				$('#container').fadeOut("slow");*/
+				//$('#container').fadeIn();
+				$('#container').animate({opacity:"1", height:"40%", top:"30%", fontSize:"80pt"}).delay(400).animate({opacity:"0", height:"12", top:"0", fontSize:"20pt"});
+				//.delay(500).fadeOut();
 			}
 			
 			var add = function(){
@@ -89,12 +93,14 @@ div {
 		background:#28E9DC;
 		z-index:2;
 		position:fixed;
-		top:44%;
+		top:0%;
 		right:15%;
 		font-size:20pt;
 		text-align:center;
 		line-height:50%;
-		opacity:0.8;
+		border:10px;
+		border-radius:15px;
+		border-color:#000000;
 	}
 	#topleft {
 		position:fixed;
@@ -102,7 +108,7 @@ div {
 		top:0;
 		width:50%;
 		height: 50%;
-		background:#F88;
+		background:#ED04A7;
 		font-size:200pt;
 		text-align:center;
 		line-height:50%;

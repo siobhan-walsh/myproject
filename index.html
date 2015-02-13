@@ -1,10 +1,36 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>week7?</title>
+	<meta charset="UTF-8">
+	<title>week7?</title>
 </head>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+	$(document).ready(
+		function(){
+			$('#calc').click(
+				function(){
+					var num1 = parseInt($('#num1').val());
+					var num2 = parseInt($('#num2').val());
+					var total = num1 + num2
+					$('#display').html("<h1>" + total + "</h2>");
+									
+				}
+			);
+		}
+	);
+</script>
 <body>
+	<input id="num1" type="text" placeholder="the first #"/>
+    <button id='add'>+</button>
+    <button id='subtract'>-</button>
+    
+    <input id="num2" type='text' placeholder='the second #'/>
+    <button id='calc'>Calculate</button>
+
+	<div id="display">
+    </div>
+
+
 </body>
 </html>

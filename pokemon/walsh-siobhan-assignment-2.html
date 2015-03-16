@@ -1,0 +1,435 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pokemon Battle</title>
+  <link rel="icon" type="image/png" href="./pokeball.png"/>
+  <link rel="shortcut icon" href="./pokeball.png" type="image/png"/>   
+  <style>
+	  #canv1 {
+		padding-left: 0;
+		padding-right: 0;
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+		width: 800px;
+		border:1px solid #000000;
+		-webkit-box-shadow: 6px 10px 13px -4px rgba(0,0,0,0.74);
+		-moz-box-shadow: 6px 10px 13px -4px rgba(0,0,0,0.74);
+		box-shadow: 6px 10px 13px -4px rgba(0,0,0,0.74);
+	  }
+	  #refresh {
+		  margin-top:2%;
+		  margin-left:40%;
+		  margin-right:auto;
+		  width:15%;
+		  height:20px;
+	  }
+  </style>
+</head>
+
+<body>
+
+ 	<canvas id="canv1" width="640" height="480" >
+	</canvas>
+	<form><input type=button id="refresh" value="Play Again!" onClick="window.location.reload()"></form> 
+	<script type = "text/javascript">  
+          	document.addEventListener("DOMContentLoaded", imgLoader, false);
+
+     	  // GLOBALS
+      	 
+          	var images = new Array();
+			
+			//random numbers to be assigned to things later:
+			var randy = Math.floor((Math.random()*4) +1); //between 1-4)
+			var otherRandy = Math.floor((Math.random()*4) +1) +4; //between 5-8
+			
+			console.log("randy = " +randy);
+			console.log("otherRandy=" + otherRandy);
+      		
+			/*
+			 images: 0 = bg, 1 = sun, 2 = grass, 3 = clouds 4 = flowers 5 = tuft 6=bulbasaur 7=charmander 8=pikachu 9=squirtle 10=ashes 11= mays 12= beautifly.png 13=munchlax.ong 14=glaceon 15=skitty */
+			 
+      		var urls = ["bg.png","sun.png","grassy.png","cloud.png", "flower.png", "tuft.png", "bulbasaur.png", "charmander.png", "pikachu.png", "squirtle.png", "ashes.png", "mays.png", "beautifly.png", "munchlax.png", "glaceon.png", "skitty.png"];
+      		var ctx;
+      		var numResources = 16;
+      		var curResources = 0;
+
+      		imgLoader();
+
+     		// adapted from:
+      		// http://stackoverflow.com/questions/15353889/image-preloading-canvas-in-chrome
+      		function imgLoader() {
+          	//console.log("Calling imgLoader.");
+
+          	for(var i = 0; i < urls.length; i++) {
+              images[i] = new Image();
+              images[i].src = urls[i];
+              images[i].onload = isLoaded;
+          	}
+
+      	}
+
+      		function isLoaded() {
+          	curResources++;
+          	//console.log("Loaded resource! Total: " + curResources);
+          	if(curResources == numResources) {
+              //console.log("All images loaded. Now safe to draw them.");
+              drawAll();
+          	}
+      	}
+	
+	//begin drawing with functions 
+      		function drawAll() {
+
+          	// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D.drawImage
+          	var canv1 = document.getElementById("canv1");
+          	canv1.setAttribute('tabindex','0');
+          	canv1.focus();
+          	ctx = canv1.getContext("2d");
+
+          	drawBackground();
+          	drawSun(1);
+          	drawClouds(4);
+          	drawFlowers();
+          	drawTuft();
+          	drawFirstPokemon();
+			drawSecondPokemon();
+			drawWinorLose();
+			drawGrass();
+			
+      }
+
+
+    //begin functions below
+
+          //just draw bg
+            function drawBackground() {
+                var bg = new Sprite(images[0], 0, 0);
+				bg.redraw();
+            }
+
+        // random position for the sun
+            function drawSun(positionOfSun) {
+               
+                for (var i =0; i < positionOfSun; i++) {
+                    var randomSunX = Math.floor((Math.random() * 440) - 10);
+                    var randomSunY = Math.floor((Math.random() *  20) +1);
+                    var sun = new Sprite(images[1], randomSunX, randomSunY, 200, 200);
+                    
+					sun.redraw();
+                }
+            }
+
+        //just draw grass twice     
+            function drawGrass() {
+                var grass1 = new Sprite(images[2], 0, 380, 350, 100);
+                var grass2 = new Sprite(images[2], 300, 380, 350, 100);
+				grass1.redraw();
+				grass2.redraw();
+            }
+        //random position and size for flowers
+            function drawFlowers(positionOfFlowers) {
+                var flowers=[];
+                if(positionOfFlowers == undefined || positionOfFlowers == null
+                || positionOfFlowers < 1 || positionOfFlowers > 100) {
+                      // default value
+                    positionOfFlowers = 10;
+
+                 var i = 0;
+                 var flowerWidth = 40;
+                 var flowerHeight = 70;	
+                }
+
+                for (var i =0; i < positionOfFlowers; i++) {
+                    //position
+                    var randomFlowerX = Math.floor((Math.random() * 640) + 1);
+                    var randomFlowerY = Math.floor((Math.random() * 200) + 200);
+
+                    var size  = 100;
+                    var percentageOfVariation = 60;
+                    var randomPercent = Math.floor((Math.random() * percentageOfVariation) +1);
+                    size -= randomPercent;
+                    var sizePercent = size/100;
+
+
+                    //draw
+                    var flower = new Sprite(images[4], randomFlowerX, randomFlowerY, Math.floor(sizePercent * flowerWidth), Math.floor(sizePercent * flowerHeight));
+                    flowers.push(flower);
+					flower.redraw();
+
+                }
+            }
+
+			//random position/size for tufts
+            function drawTuft(positionOfTuft) {
+                var tufts=[];
+                if(positionOfTuft == undefined || positionOfTuft == null
+                || positionOfTuft < 1 || positionOfTuft > 100) {
+                      // default value
+                    positionOfTuft = 10;
+
+                 var i = 0;
+                 var tuftWidth = 75;
+                 var tuftHeight = 34;	
+                }
+
+                for (var i =0; i < positionOfTuft; i++) {
+                    //position
+                    var randomTuftX = Math.floor((Math.random() * 640) + 1);
+                    var randomTuftY = Math.floor((Math.random() * 200) + 200);
+
+                    var size  = 150;
+                    var percentageOfVariation = 60;
+                    var randomPercent = Math.floor((Math.random() * percentageOfVariation) +1);
+                    size -= randomPercent;
+                    var sizePercent = size/100;
+
+
+                    //draw
+                    var tuft = new Sprite(images[5], randomTuftX, randomTuftY, Math.floor(sizePercent * tuftWidth), Math.floor(sizePercent * tuftHeight));
+                    tufts.push(tuft);
+					tuft.redraw();
+
+                }
+            }
+
+
+        //random position and size for clouds
+            function drawClouds(numberOfClouds) {
+
+              var clouds = [];
+
+              if(numberOfClouds == undefined || numberOfClouds == null
+                || numberOfClouds < 1 || numberOfClouds > 100) {
+                      // default value
+                    numberOfClouds = 10;
+
+                    var i = 0;
+                    var cloudWidth = 150;
+                    var cloudHeight = 80;
+                  }
+
+                  for (var i =0; i < numberOfClouds; i++)   {  
+                      //position
+                      var randomCloudX = Math.floor((Math.random() * 640) + 1);
+                      var randomCloudY = Math.floor((Math.random() * 100) + 1);
+                      /*randomCloudX -= 100;
+                      randomCloudY -= 10;*/
+
+                      //size
+                      var size  = 150;
+                      var percentageOfVariation = 30;
+                      var randomPercent = Math.floor((Math.random() * percentageOfVariation) +1);
+                      size -= randomPercent;
+                      var sizePercent = size/100;
+
+                      //draw
+                      var cloud = new Sprite(images[3], randomCloudX, randomCloudY, Math.floor(sizePercent * cloudWidth), Math.floor(sizePercent * cloudHeight));
+
+                      clouds.push(cloud);
+					  cloud.redraw();                       
+
+                    }
+
+                  }
+				  
+		//drawing first set of pokemon images/text and assigning them numbers so the randy variable knows what to draw
+			 function drawFirstPokemon() {
+			 	var pokemon = [];
+				ctx.font= "20px Georgia";
+				
+				// array index:  6=bulbasaur 7=charmander 8=pikachu 9=squirtle
+				
+				if(randy == 1) { 
+					
+					var bulbasaur = new Sprite(images[6], 180, 330, 120, 120);
+					var bulbasaurText = ctx.fillText("Bulbasaur    vs. ", 220,150);
+					bulbasaur.redraw();
+					
+				} else if(randy == 2) {
+					
+					var charmander = new Sprite(images[7], 180, 330, 120, 120);
+					var charmanderText = ctx.fillText("Charmander   vs. ", 200,150);
+					charmander.redraw();
+					
+				} else if(randy == 3) {
+					
+					var pikachu = new Sprite(images[8], 180, 330, 120, 120);
+					var pikachuText = ctx.fillText("Pikachu    vs. ", 220,150);
+					pikachu.redraw();  
+					
+				} else if(randy == 4) {
+					
+					var squirtle = new Sprite(images[9], 180, 330, 120, 120);
+					var squirtleText = ctx.fillText("Squirtle    vs. ", 220,150);
+					squirtle.redraw();
+				}
+					
+			 }
+				
+		//drawing second set of pokemon images/text and assigning them numbers so the otherRandy variable knows what to draw
+		
+				//11= mays 12= beautifly.png 13=munchlax.ong 14=glaceon 15=skitty
+				
+			function drawSecondPokemon() {
+				
+				if(otherRandy == 5) {
+					
+					var beautifly = new Sprite(images[12], 340, 250, 120, 120);
+					var beautiflyText = ctx.fillText(" Beautifly", 360,150);
+					beautifly.redraw();
+					
+				} else if(otherRandy == 6) {
+					
+					var munchlax = new Sprite(images[13], 350, 300, 120, 120);
+					var munchText = ctx.fillText(" Munchlax", 360,150);
+					munchlax.redraw();
+					
+				} else if(otherRandy == 7) {
+					
+					var glaceon = new Sprite(images[14], 350, 300, 120, 120);
+					var glaceonText = ctx.fillText(" Glaceon", 360,150);
+					glaceon.redraw();
+					
+				} else if(otherRandy == 8) {
+					
+					var skitty = new Sprite(images[15], 350, 300, 120, 120);
+					var skittyText = ctx.fillText(" Skitty", 360,150);
+					skitty.redraw();
+				}
+				
+			}
+			
+			//this is so either ash will be happy or may will be happy and vice versa depending on the pairing:
+			
+			function drawWinorLose() {
+				var maysad = new Sprite(images[11], 460, 200, 130, 190, 260, 280, 160, 220);
+				var mayhappy = new Sprite(images[11], 450, 100, 135, 320, 50, 150, 150, 350);
+				var ashHappy = new Sprite(images[10], 30, 150, 140, 320, 50, 170, 140, 320);
+				var ashSad =  new Sprite(images[10], 30, 150, 140, 320, 250, 180, 140, 320);
+				var ashWins = "Ash wins!";
+				var mayWins = "May wins!";
+				ctx.font = "40px Georgia";
+		
+			//depending on the combination either ash will win or may will win and the corresponding text/image will show
+			
+				if (randy == 1 && otherRandy == 5 || randy == 1 && otherRandy == 8) {
+					
+					ctx.fillText(ashWins, 250, 200);
+					maysad.redraw();
+					ashHappy.redraw();
+					
+				} else  if (randy == 1 && otherRandy == 6 || randy == 1 && otherRandy == 7) {
+					
+					ctx.fillText(mayWins, 250, 200);	
+					mayhappy.redraw();
+					ashSad.redraw();
+					
+				} else if (randy == 2 && otherRandy == 5 || randy == 2 && otherRandy == 6) {
+					
+					ctx.fillText(ashWins, 250, 200);
+					maysad.redraw();
+					ashHappy.redraw();
+					
+				} else if (randy == 2 && otherRandy == 7 || randy == 2 && otherRandy == 8) {
+					
+					ctx.fillText(mayWins, 250, 200);	
+					mayhappy.redraw();
+					ashSad.redraw();
+	
+				} else if (randy == 3 && otherRandy == 6 || randy == 3 && otherRandy == 7) {
+					
+					ctx.fillText(ashWins, 250, 200);
+					maysad.redraw();
+					ashHappy.redraw();
+					
+				} else if (randy == 3 && otherRandy == 5 || randy == 3 && otherRandy == 8) {
+					
+					ctx.fillText(mayWins, 250, 200);	
+					mayhappy.redraw();
+					ashSad.redraw();
+					
+				} else if (randy == 4 && otherRandy == 7 || randy == 4 && otherRandy == 8) {
+					
+					ctx.fillText(ashWins, 250, 200);
+					maysad.redraw();
+					ashHappy.redraw();
+					
+				} else if (randy == 4 && otherRandy == 5 || randy == 4 && otherRandy == 6) {
+					
+					ctx.fillText(mayWins, 250, 200);	
+					mayhappy.redraw();
+					ashSad.redraw();
+				}
+				
+            }
+			
+			
+		//sprite function from arron's example
+		  function Sprite(img, dx, dy, dw, dh, sx, sy, sw, sh) {
+	
+			  var whichFunctionVersion = 1;
+	
+			  //console.log(
+			  //  "dx: " + dx + " dy: " + dy + " dw: " + dw + " dh: " + dh
+			  //  + " sx: " + sx + " sy: " + sy + " sw: " + sw + " sh: " + sh);
+	
+	
+			  if(dx == undefined || dy == undefined) {
+				  dx = dy = 0;
+				  whichFunctionVersion = 1;
+	
+			  }
+			  if(dw != undefined && dh != undefined && dw > 1 && dh > 1) {
+	
+				  whichFunctionVersion = 2;
+	
+			  }
+			  if(sx != undefined & sy != undefined && sw != undefined
+				  && sh != undefined) {
+	
+				  whichFunctionVersion = 3;
+			  }
+	
+			  // assign to this
+			  this.img = img;
+	
+			  this.sx = sx;
+			  this.sy = sy;
+			  this.sw = sw;
+			  this.sh = sh;
+			  this.dx = dx;
+			  this.dy = dy;
+			  this.dw = dw;
+			  this.dh = dh;
+			  this.whichFunctionVersion = whichFunctionVersion;
+	
+			  this.redraw = function() {
+				  if(this.whichFunctionVersion == 1) {
+	
+					  ctx.drawImage(this.img, this.dx, this.dy);
+	
+				  } else if(this.whichFunctionVersion == 2) {
+	
+					  ctx.drawImage(this.img, this.dx, this.dy, this.dw, this.dh);
+	
+				  } else if(this.whichFunctionVersion == 3) {
+	
+					  ctx.drawImage(this.img, this.sx, this.sy, this.sw, this.sh, this.dx, this.dy, this.dw, this.dh);
+	
+				  }
+			  }
+			  if(this.sw == undefined) {
+				  this.sw = this.img.width;
+			  }
+			  if(this.sh == undefined) {
+				  this.sh = this.img.height;
+			  }
+		  }
+
+
+
+   </script>  
+</body>
+</html>

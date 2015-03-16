@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>fortune teller</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+    
+<script>
+$(document).ready(
+	function() {
+
+		//the words that show up after clicking buttons:
+		var buttonwords = new Array ("k nvm", "ok let's begin!", "what is your name", "what is your favourite colour?", "what month were you born in?","i am now calculating your fortune", "are you sure you're ready?", "really??","ok, i'll tell you now", "ok have a nice day");
+		
+		//the fortunes:
+		var result = ["hey do that thing you are supposed to do right now! seriously it will change your life forever", "just be positive and everything will work out!", "everything in your life will improve if you never drink lemondade again. it's gross.", "you will die in 127 years, one month, 18 days, 3hours, 14 minutes, and 12 seconds. see you then!","RUN!!!!", "omg you are going to have like the best life ever! i'm so jealous. just try not to forget your friends once you reach all that glory and fame", "hey good news, you are on the right path. just don't mess up!"][Math.floor(Math.random() * 7)]
+	
+	
+		var name = $("#name").val();
+		
+		$("#nobutton").click(
+			function() {
+				$("p").fadeOut("slow",		
+			
+				function() {
+					$("#ogbuttons").hide("slow");
+					$("p").text(buttonwords[0]);
+					$("#ogbuttons").replaceWith($("#k"));
+					$("p").fadeIn("fast");
+					}
+				);
+			}
+		);		
+		$("#k").click(
+			function(gone) {
+				$("body").fadeOut("slow");
+			}
+		);
+		$("#yesbutton").click(
+			function() {
+				$("p").fadeOut("slow",
+			
+					function() {
+						$("p").text(buttonwords[1]);
+						$("p").fadeIn("fast");
+						$("#ogbuttons").replaceWith($("#ok"));
+					}
+				);
+			}
+		);					
+	
+		$("#ok").click(
+			function(gone) {
+				$("p").fadeOut("slow",
+					function() {
+						$("p").text(buttonwords[2]);
+						$("p").fadeIn("fast");
+						$("#ok").replaceWith($("#formarea"));
+					}
+				);
+			}
+		);	
+								
+		$("#namesub").click(
+			function(gone) {
+				$("p").fadeOut("slow",
+					function() {
+						var name = $("#name").val();
+						$("p").text(buttonwords[3]);
+						$("p").fadeIn("fast");
+						$("#formarea").replaceWith($("#formarea2"));
+						console.log(name);
+					}
+				);
+			}
+		);				
+		
+		$("#colsub").click(
+			function(gone) {
+				$("p").fadeOut("slow",
+					function() {
+						$("p").text(buttonwords[4]);
+						$("p").fadeIn("fast");
+						$("#formarea2").replaceWith($("#formarea3"));
+					}
+				);
+			}
+		);	
+		
+		$("#bmbutton").click(
+			function(gone) {
+				$("p").fadeOut("slow",
+					function() {
+						$("p").text(buttonwords[5]);
+						$("p").fadeIn("fast");
+						$("#formarea3").replaceWith($("#hurry"));
+					}
+				);
+			}
+		);	
+		
+		$("#hurry").click(
+			function(gone) {
+				$("p").fadeOut("slow",
+					function() {
+						$("p").text(buttonwords[6]);
+						$("p").fadeIn("fast");
+						$("#hurry").replaceWith($("#ready"));
+					}
+				);
+			}
+		);	
+	
+		$("#ready").click(
+			function(gone) {
+				$("p").fadeOut("slow",
+					function() {
+						$("p").text(buttonwords[7]);
+						$("p").fadeIn("fast");
+						$("#ready").replaceWith($("#really"));
+					}
+				);
+			}
+		);	
+	
+		$("#really").click(
+			function(gone) {
+				$("p").fadeOut("slow",
+					function() {
+						$("p").text(buttonwords[8]);
+						$("p").fadeIn("fast");
+						$("#really").replaceWith($("#now"));
+					}
+				);
+			}
+		);			
+	
+		$("#now").click(
+			function(gone) {
+				$("p").fadeOut("slow",
+					function() {
+						$("p").html(name + "... " + result);
+						$("p").fadeIn("fast");
+						$("#now").replaceWith($("#afterbuttons"));
+							console.log(name);
+					}
+				);
+			}
+		);
+		
+		$("#wow").click(
+			function(gone) {
+				$("p").fadeOut("slow",
+					function() {
+						$("#playagain").hide();
+						$("#wow").replaceWith($("#bye"));
+						$("p").text(buttonwords[9]);
+						$("p").fadeIn("fast");
+					}
+				);
+			}
+		);
+		
+		$("#bye").click(
+			function(gone) {
+				$("body").fadeOut("slow");
+			}
+		);
+	
+		$("#playagain").click(
+			function(gone) {
+				$("p").fadeOut("slow",
+				function() {
+					location.reload(true);
+				}
+			);
+		}
+	);
+		
+	}
+	
+);
+</script>
+
+<body>
+	<div class="wrap">
+    	<div class="circle">
+        	<div class="inner">
+            <div id="asking">
+                <p>do you want me to tell you your fortune?</p>
+            </div>
+            <div id="ogbuttons">
+                <button id="yesbutton">yes please!</button>
+                <button id="nobutton">no, i'm boring</button>
+            </div>
+            <div id="hidden">
+                <div id="formarea">
+                        <input type="text" id="name"/>
+                        <button id="namesub">submit</button>
+                </div>
+                <div id="formarea2">
+                        <input type="text" id="other"/>
+                        <button id="colsub">submit</button>
+                </div>    
+                <div id="formarea3">
+                        <input type="text" id="otherother"/>
+                        <button id="bmbutton">submit</button>
+                </div>    
+                <div id="finalfortune">
+                </div>   
+                <div id="buttonsholder">
+                        <button id="ok">ok cool</button>
+          
+                        <button id="hurry">ok, hurry up</button>
+            
+                        <button id="ready">yes!</button>
+            
+                        <button id="really">omg</button>
+            
+                        <button id="now">thank you!</button>
+                        
+                        <button id="bye">k bye</button>
+                        <button id="k">k</button>
+                 </div>
+                 <div id="afterbuttons">
+                    <button id="playagain">that fortune sucks, can i try again?</button>
+                    <button id="wow">omg you're exactly right wow you are so amazing and beautiful thank you</button>
+                </div>
+           </div> 
+        </div>
+  	</div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BOnus Outfit Planner </title>
+    <link href='http://fonts.googleapis.com/css?family=Redressed' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<script>
+	$(document).ready(
+		function(){
+			var total = 0;
+			var oneprice = 0;
+			var twoprice = 0;
+			var threeprice = 0;
+			var fourprice = 0;
+			var fiveprice = 0;
+			var ilink = "http://www.neildaswani.com/assets/images/logos/placeholder.jpg";
+			var link1 = 0;
+			var link2 = 0;
+			var links = [];
+			var price = [];
+			
+			 var getlink1 = function() {
+				ilink= $("#linksub").val();
+				var i = 0; 
+				do {
+					link1 = ilink;
+					console.log("hi loop");
+					 i++;
+				} while (i > 1);
+				
+			}
+			var getlink2 = function() {
+				ilink= $("#linksub").val();
+				var i = 0; 
+				do {
+					link12 = ilink;
+					console.log("hi loop 2");
+					 i++;
+				} while (i > 1);
+				
+			}
+			
+			var which2 =function() {
+				var test = $("input[name='options']:checked").val();
+				console.log("test is", test);	
+			}
+			
+			var which = function() {
+				if($("#list").val() == "head") {
+					heady1();
+					
+				} else if($("#list").val() == "neck") {
+					necky();
+					
+				} else if($("#list").val() == "body") {
+					bodyy();
+					
+				} else if($("#list").val() == "legs") {
+					leggy();
+					
+				} else if($("#list").val() == "feet") {
+					feety();
+					
+				}
+				
+			}
+			
+			var showtotal = function() {
+				
+				total =  oneprice + twoprice +threeprice +fourprice + fiveprice;
+				$("#totalplace").html("<h1>$" + total + "</h1>");
+				console.log(total);
+				
+			}
+			
+			var heady = function () {
+				
+				links.push($("#linksub").val());
+				$("#img1").html("<img src='" + links[0] + "'>");
+				console.log("arrr", links[0]);
+				price.push(parseInt($("#itemprice").val()));
+				showtotal();
+					
+				}
+				
+			/*var heady1 = function() {
+				
+				$("#img1").html("<img src='" + "http://vignette2.wikia.nocookie.net/fallout/images/2/2e/Cowboy_hat.png/revision/latest?cb=20110405200937" + "'>");
+					
+				oneprice = parseInt($("#itemprice").val());
+				showtotal();
+			}*/
+				
+			var heady2 = function () {
+				
+			
+					var link2 = ilink; 
+					$("#img1").html("<img src='" + "http://www.cuyana.com/media/catalog/product/cache/1/thumbnail/9df78eab33525d08d6e5fb8d27136e95/5/_/5_hat_1_2.jpg" + "'>");
+					oneprice = parseInt($("#itemprice").val());
+					showtotal();
+					
+				}
+				
+			var necky = function () {
+				
+					var ilink = $("#linksub").val();
+					$("#img2").html("<img src='" + ilink + "'>");
+					twoprice = parseInt($("#itemprice").val());
+					showtotal();
+				}
+				
+			var bodyy = function () {
+				
+					var ilink = $("#linksub").val();
+					$("#img3").html("<img src='" + ilink + "'>");
+					threeprice = parseInt($("#itemprice").val());
+					showtotal();
+			}
+			
+			var leggy = function () {
+				
+					var ilink = $("#linksub").val();
+					$("#img4").html("<img src='" + ilink + "'>");
+					fourprice = parseInt($("#itemprice").val());
+					showtotal();
+			}
+				
+			var feety = function () {
+				
+					var ilink = $("#linksub").val();
+					$("#img5").html("<img src='" + ilink + "'>");
+					fiveprice = parseInt($("#itemprice").val());
+					showtotal();
+			}
+			
+			$('#op1').click(
+				function(){
+					heady();
+				}
+			);
+			
+			$('#op2').click(
+				function(){
+					heady2();
+				}
+			);
+			
+			$('#submit').click( function() {
+				which();
+			
+				}
+			);
+			
+		}
+	);
+</script>
+<style>
+html {
+	
+	background:url(http://hdwallpick.com/wp-content/uploads/2015/02/free-blue-background-640x400.jpg) no-repeat center center fixed; 
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+}
+body {
+	font-family: 'Redressed', cursive;
+	font-size:16pt;
+
+}
+
+#header {
+	text-align:center;
+	padding:1%;
+	margin-bottom:5px;
+
+}
+#formplace {
+	width:30%;
+	float:left;
+	padding-left:15%;
+	padding-right:0%;
+	padding-top:0%;
+}
+
+.inp {
+	width:60%;
+	height:50px;
+	margin:10px;
+	font-family: 'Redressed', cursive;
+	font-size:16pt;
+	text-align:center;
+}
+#formplace select{
+	width:60%;
+	margin:10px;
+	font-family: 'Redressed', cursive;
+	font-size:16pt;	
+}
+#formplace option{
+	font-family: 'Redressed', cursive;
+	font-size:16pt;	
+}
+#imageplace {
+	width:50%;
+	float:right;	
+	margin-right:2%;
+}
+
+#imageplace img {
+	max-width:50%;	
+	
+}
+
+#totalplace {
+	width:30%;
+	float:left;
+	padding-left:10%;
+	padding-right:10%;
+	padding-top:0%;
+	
+}
+
+#line{
+	
+	width:40%;
+	margin-left:4%;
+
+	
+}
+</style>
+
+<body>
+
+	<div id='header'>
+    	<h1>Outfit Planner</h1>
+        <h2>Enter an image link and a price for each part of your outfit!</h2>
+    </div>
+  <div id="formplace">  
+      <input type='text' id='linksub' placeholder="image link" class="inp" /><br>
+  
+      <select id="list" name='bodies' class="inp">
+          <option value="head">Head</option>
+          <option value='neck'>Neck</option>
+          <option value="body">Body</option>
+          <option value="legs">Legs</option>
+          <option value="feet">Feet</option>
+      </select>
+       <div id='line'>
+      
+          <label for="op1">Option 1</label>
+          <input id="op1" name="options" type='radio' value="Option 1" checked><br>
+          <label for="op2">Option 2</label>
+          <input id="op2" name="options" type='radio' value="Option 2">
+      
+      </div>
+      <br>
+      <input id='itemprice' type='text' placeholder='price' class="inp"><br>
+      <input type="button" id="submit" value="Submit" class="inp">
+      
+  	  <h2>Your total so far is:</h2>
+  
+      <div id="totalplace">
+      </div>
+  </div>
+  
+  <div id='imageplace'>
+      <p>Head:</p>
+      <div id="img1">
+          
+           <br><br><br><br>
+      </div>
+      <hr>
+      Neck:
+      <div id="img2">
+         <br><br><br><br>
+      </div>
+      <hr>
+      Body:
+      <div id="img3">
+          <br><br><br><br>
+      </div>
+      <hr>
+      Legs:
+      <div id="img4">
+          <br><br><br><br>
+      </div>
+      <hr>
+      Feet:
+      <div id="img5">
+          <br><br><br><br>
+      </div>
+  </div>
+  
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>babyi'mnotamonster</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<style>
+	body{
+		background-color:#000000;
+		color:#ffffff;	
+	}
+	
+	p{
+		z-index:2;
+	}
+	
+	#fantastic{
+		position:fixed;
+		top:-100px;
+	
+	}
+	#bby {
+		position:fixed;
+		top:100px;
+		right:-100px;
+	}
+	img {
+		width:80%;	
+		opacity:0;
+		border-radius:400px;
+		margin:4% 10%;
+		z-index:-1;
+	}
+	#what {
+		position:fixed;
+		left:50%;
+		top:4px;
+		font-size:90pt;	
+		cursor:help;
+	}
+	
+	.letters {
+		position:fixed;
+		top:-100px;	
+		font-size:24pt;
+	}
+	
+	
+</style>
+</head>
+
+<body>
+
+<div id="thething">
+
+    <p class='letters' id='a1'>a</p>
+    <p class='letters' id='a2'>a</p>
+    <p class='letters' id='a3'>a</p>
+    
+    <p class='letters' id='what'>?</p>
+        
+    <p class='letters' id='fantastic'> f_nt_stic</p>
+    <p class='letters' id='bby'> b_by </p>
+	<img id='1' src="gdragon.jpg">
+</div>
+
+
+<audio id='wow'>
+	<source src= 'wow.mp3' type="audio/mpeg">
+</audio>
+
+
+
+<script>
+	$(document).ready(
+		function(){
+			console.log("FANTASTIC BABY");
+			
+		
+		
+			$("#what").click(
+				function(){
+			
+					$("#wow")[0].play();
+					first();
+					
+				}
+			);
+			
+			var second = function(){
+				
+				$("#thething p").animate({"font-size":"38pt"});
+				$("#what").css({"opacity":"0"});
+				$(".letters").animate({"top":"0","left":"0"},
+					function(){
+						$("#thething").html("<div><img id='theend' src='eye.jpg'></div>");
+						$("#theend").animate({"opacity":"1", "border-radius":"0", "width":"140%", "left":"-200px", "margin":"0"},
+							function(){
+								$("#theend").animate({"width":"10%", "left":"-800px", "opacity":"0"},
+									function(){
+										
+										$("#thething").html('<h1>sorry</h1>');
+											
+									}
+									
+								
+								
+								);
+								
+							}
+						);
+					}
+				);
+	
+					
+			}
+			
+			
+			var first = function(){	
+					$("#fantastic").animate(
+						{ "font-size":"36pt",
+							"left":"400px",
+							"top":"200px"
+							}, 1000
+					);	
+					
+					$("#bby").animate(
+						{ "font-size":"40pt",
+							"left":"500px",
+							"top":"300px"
+							}, 1000
+					);	
+						
+					$("#1").animate({"opacity":"0.4"}).delay(400).animate({"opacity":"1","width":"100%"}).delay(400).animate({"opacity":"0.2", "margin":"0", "border-radius":"0"}, 
+					
+					function(){
+						
+						$("#fantastic").animate(
+							{ "font-size":"36pt",
+								"left":"800px",
+								"top":"500px"
+								}, 1000, function(){
+										$("#fantastic").animate(
+											{ "font-size":"36pt",
+												"left":"300px",
+												"top":"300px"
+												}
+												
+										);
+									}
+						);	
+						$("#bby").animate(
+							{ "font-size":"40pt",
+								"left":"100px",
+								"top":"40px"
+								}, 1000,
+								function(){
+										$("#bby").animate(
+											{ "font-size":"36pt",
+												"left":"600px",
+												"top":"300px"
+												}
+										);
+									}
+							);
+						}
+					
+					);		
+					
+					$("#a1").delay(1000).animate({"top":"200px","left":"800px"}, 3000).delay(1050).animate({"top":"250px","left":"200px"}, 2000).animate({"top":"360px","left":"314px"});
+					$("#a2").delay(1500).animate({"top":"200px","right":"800px"}, 2000).delay(1000).animate({"top":"250px","right":"200px"}, 2000).animate({"top":"360px","left":"389px"});
+					$("#a3").delay(1800).animate({"top":"200px","right":"600px"}, 1000).delay(1050).animate({"top":"280px","right":"200px"}, 3000).animate({"top":"360px","left":"640px"},
+					function(){
+						second();
+					}
+					
+					);
+			
+			
+			}
+		}
+	);
+
+</script>
+</body>
+</html>

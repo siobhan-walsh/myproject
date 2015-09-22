@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+    
+        <title>assignment1</title>
+        <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+    </head>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color:#ccebe8;
+        }
+        #info {
+           width:40%;
+           margin:4%;
+        }
+        
+        label {
+            margin:4%;   
+            line-height:40px;
+        }
+        input {
+            margin:4px;   
+            line-height:20px;
+            border:none;
+            height:30px;
+            border-radius:4px;
+        }
+        #labels {
+            width:30%;
+            float:left;
+            
+           
+        }
+        #inpts {
+            width:70%;
+            float:left;
+           
+        }
+        #img {
+            box-shadow: 2px 2px 2px #888888;   
+            border-radius:40px;
+        }
+        button {
+            width:80%;
+            margin:2%;
+            height:40px;
+            border:none;
+            border-radius:10px;
+            background-color:#bba3d0;
+            clear:both;
+            font-size:14pt;
+            
+        }   
+        button:hover {
+            background-color:#aa8cc5;   
+        }
+        
+        
+        @keyframes hi {
+            0% {transform: rotatey(0deg);}
+            25% {transform: rotatey(180deg);}
+            
+            75% {transform: rotatey(-180deg);}
+            100% {transform: rotatey(0deg);}
+            
+         }
+        
+        @keyframes scale {
+            0% transform: scale(0,0);
+            100% transform: scale(4,4);
+            
+         }
+        
+        #img:hover {
+            animation-name: hi;
+            animation-duration: 10s;
+            animation-timing-function: ease-in-out;
+            animation-direction: alternate;
+        }
+       #bigimg:hover {
+            animation-name: scale;
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+            animation-direction: alternate;
+        } 
+    
+        
+	</style>
+    <body>                                  
+        <div id='glass'></div>
+        <div id='info'>
+            <h4>Please enter the item information</h4>
+            <div id='labels'>
+                <label for = 'imgurl'>Image:</label><br>
+                <label for = 'title'>Item Title:</label><br>
+                <label for = 'price'>Price: $</label><br>
+                <label for = 'description'>Description:</label><br>
+                
+            </div>
+            <div id='inpts'>
+                <input id = 'imgurl' type = 'text' placeholder = 'image url'><br>
+
+                <input id = 'title' type = 'text' placeholder = 'item title'><br>
+                
+                <input id = 'price' type = 'text' placeholder = '0.00'><br>
+
+                <input id = 'des' type = 'text' placeholder = 'item description'><br>
+
+                </div>
+         <button id='btn'>enter</button>   
+        </div>
+        
+        
+        
+        <script>
+        
+		
+		
+		
+        btn.onclick = function() {
+          var url = document.getElementById('imgurl').value;
+          var title = document.getElementById('title').value;
+          var des = document.getElementById('des').value;
+		  var price = document.getElementById('price').value;
+         
+          
+          var btn = document.getElementById('btn');
+          
+            
+            var what = false;
+            
+            
+            var disp = document.createElement('div');
+            disp.id = 'display';
+            
+            var h = document.createElement('h1');
+            h.id = 'h';
+			
+			var h2 = document.createElement('h2');
+            h2.id = 'h2';
+            
+            var sp = document.createElement('span');
+            sp.id = 'sp';
+            
+            var img = document.createElement('img');
+            img.id = 'img';
+            
+            document.body.appendChild(disp);
+            disp.style.width = '50%';
+            disp.style.position = 'fixed';
+            disp.style.top = '0';
+            disp.style.left = '40%';
+            
+            img.style.width = ' 100%';
+            img.style.margin = '6% 0';
+            
+            document.getElementById('display').appendChild(img);
+            document.getElementById('display').appendChild(h);
+            document.getElementById('display').appendChild(h2);
+            document.getElementById('display').appendChild(sp);
+            
+            
+            document.getElementById('img').src=url;
+            document.getElementById('h').innerHTML = title;
+            document.getElementById('h2').innerHTML = '$' + price;
+            document.getElementById('sp').innerHTML = des;
+            
+            
+            
+    /* var mouse = false;
+              
+          img.addEventListener("mouseover", function( event ) {
+             
+                 
+              if (mouse == false) {
+
+                           this.style.opacity = '0.4';
+                            mouse = true;
+                  
+                        console.log(mouse);
+                  
+                    } else if (mouse == true){
+
+
+                        this.style.opacity = '1';
+                        
+                           mouse = false;
+                         console.log(mouse);                       
+
+                    };
+            
+                
+                
+                
+                });
+              
+              
+             */
+          
+         
+			img.addEventListener("mouseout", function( event ) {
+				this.style.transform = 'rotate(0deg)';
+			
+			});
+            img.onclick = function () {
+                
+                var bigdisp = document.createElement('div');
+                bigdisp.id = 'big';
+                document.body.appendChild(bigdisp);
+                
+                
+                bigdisp.style.position = 'fixed';
+				bigdisp.style.top = '0';
+				bigdisp.style.left = '0';
+                bigdisp.style.width = '100vw';
+                bigdisp.style.height = '100vh';
+                
+                var bigimg = document.createElement('img');
+                bigimg.id = 'bigimg';
+                bigimg.src = url;
+                document.getElementById('big').appendChild(bigimg);
+                
+                
+                
+                bigimg.style.width = '100%';
+                bigimg.style.height = '100%'; 
+				
+				
+		
+				bigdisp.onclick = function(){
+				    document.body.removeChild(bigdisp);
+				}
+				
+            
+            }
+            
+			
+			
+			
+            
+          }
+          
+          
+          
+        </script>
+        
+    </body>
+</html>
